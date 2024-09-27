@@ -3,17 +3,16 @@ const translate = require('google-translate-api-x');
 
 const app = express();
 
-// Para servir archivos estáticos
+
 app.use(express.static('public'));
 
-// Middleware para parsear el cuerpo de las solicitudes
 app.use(express.json());
 
 app.post('/translate', async (req, res) => {
     const { title, culture, dynasty } = req.body;
 
     try {
-        // Traducir el título, cultura y dinastía al español
+      
         const [translatedTitle, translatedCulture, translatedDynasty] = await Promise.all([
             translateText(title, 'es'),
             translateText(culture, 'es'),
@@ -31,10 +30,9 @@ app.post('/translate', async (req, res) => {
     }
 });
 
-// Función de traducción
 async function translateText(text, targetLang) {
     if (!text || text.trim() === '') {
-        return 'Unknown'; // Si el texto no existe o está vacío, devolver 'Unknown'
+        return 'Desconocido'; 
     }
 
     try {
@@ -47,7 +45,7 @@ async function translateText(text, targetLang) {
     }
 }
 
-// Iniciar el servidor
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

@@ -1,6 +1,6 @@
-let currentPage = 1; 
-const itemsPerPage = 20;
-let totalPages = 1;
+let pagActual = 1; 
+const itemsPorPag = 20;
+let totalPag = 1;
 let allObjectIDs = [];
 
 document.getElementById('search').addEventListener('click', async () => {
@@ -31,9 +31,9 @@ document.getElementById('search').addEventListener('click', async () => {
         
         if (data.objectIDs && data.objectIDs.length > 0) {
             allObjectIDs = data.objectIDs;
-            totalPages = Math.ceil(allObjectIDs.length / itemsPerPage); 
-            currentPage = 1;
-            displayResultsPaginated(currentPage);
+            totalPag = Math.ceil(allObjectIDs.length / itemsPorPag); 
+            pagActual = 1;
+            displayResultsPaginated(pagActual);
             displayPaginationControls();
         } else {
             document.getElementById('resultados').innerHTML = '<p>No se encontraron resultados.</p>';
@@ -48,8 +48,8 @@ async function displayResultsPaginated(page) {
     const resultsContainer = document.getElementById('resultados');
     resultsContainer.innerHTML = ''; 
 
-    const startIndex = (page - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
+    const startIndex = (page - 1) * itemsPorPag;
+    const endIndex = startIndex + itemsPorPag;
     const objectIDsToShow = allObjectIDs.slice(startIndex, endIndex); 
 
     for (const id of objectIDsToShow) {
@@ -129,34 +129,34 @@ function openAdditionalImagesPage(images) {
 }
 
 function displayPaginationControls() {
-    const paginationContainer = document.getElementById('pagination-controls');
+    const paginationContainer = document.getElementById('paginacion');
     paginationContainer.innerHTML = ''; 
 
     const prevButton = document.createElement('button');
     prevButton.textContent = 'Anterior';
-    prevButton.disabled = currentPage === 1; 
+    prevButton.disabled = pagActual === 1; 
     prevButton.addEventListener('click', () => {
-        if (currentPage > 1) {
-            currentPage--;
-            displayResultsPaginated(currentPage);
+        if (pagActual > 1) {
+            pagActual--;
+            displayResultsPaginated(pagActual);
             displayPaginationControls();
         }
     });
 
     const nextButton = document.createElement('button');
     nextButton.textContent = 'Siguiente';
-    nextButton.disabled = currentPage === totalPages; 
+    nextButton.disabled = pagActual === totalPag; 
     nextButton.addEventListener('click', () => {
-        if (currentPage < totalPages) {
-            currentPage++;
-            displayResultsPaginated(currentPage);
+        if (pagActual< totalPag) {
+            pagActual++;
+            displayResultsPaginated(pagActual);
             displayPaginationControls();
         }
     });
 
     
     const pageInfo = document.createElement('span');
-    pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+    pageInfo.textContent = `Página ${pagActual} de ${totalPag}`;
 
     paginationContainer.appendChild(prevButton);
     paginationContainer.appendChild(pageInfo);
