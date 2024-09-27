@@ -5,22 +5,22 @@ let allObjectIDs = [];
 
 document.getElementById('search').addEventListener('click', async () => {
     const keyword = document.getElementById('keyword').value;
-    const department = document.getElementById('department').value; // Valor del departamento
-    const location = document.getElementById('location').value;     // Valor de la localización
+    const department = document.getElementById('department').value; 
+    const location = document.getElementById('location').value;     
 
     let apiUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true';
 
-    // Agregar departamento si fue seleccionado
+    
     if (department) {
         apiUrl += `&departmentId=${department}`;
     }
 
-    // Agregar palabra clave si fue proporcionada
+  
     if (keyword) {
         apiUrl += `&q=${keyword}`;
     }
 
-    // Agregar localización si fue seleccionada
+   
     if (location) {
         apiUrl += `&geoLocation=${location}`;
     }
@@ -31,8 +31,8 @@ document.getElementById('search').addEventListener('click', async () => {
         
         if (data.objectIDs && data.objectIDs.length > 0) {
             allObjectIDs = data.objectIDs;
-            totalPages = Math.ceil(allObjectIDs.length / itemsPerPage); // Calcular el total de páginas
-            currentPage = 1; // Reiniciar a la primera página
+            totalPages = Math.ceil(allObjectIDs.length / itemsPerPage); 
+            currentPage = 1;
             displayResultsPaginated(currentPage);
             displayPaginationControls();
         } else {
@@ -46,11 +46,11 @@ document.getElementById('search').addEventListener('click', async () => {
 
 async function displayResultsPaginated(page) {
     const resultsContainer = document.getElementById('resultados');
-    resultsContainer.innerHTML = ''; // Limpiar resultados previos
-    
+    resultsContainer.innerHTML = ''; 
+
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const objectIDsToShow = allObjectIDs.slice(startIndex, endIndex); // Obtener IDs de la página actual
+    const objectIDsToShow = allObjectIDs.slice(startIndex, endIndex); 
 
     for (const id of objectIDsToShow) {
         try {
@@ -61,7 +61,7 @@ async function displayResultsPaginated(page) {
                 const artItem = document.createElement('div');
                 artItem.classList.add('art-item');
                 
-                // Llamar a la función de traducción
+                
                 const translatedData = await translateData(data.title, data.culture, data.dynasty);
 
                 artItem.innerHTML = `
@@ -70,8 +70,7 @@ async function displayResultsPaginated(page) {
                     <p>Cultura: ${translatedData.culture || 'Desconocido'}</p>
                     <p>Dinastía: ${translatedData.dynasty || 'Desconocido'}</p>
                 `;
-
-                // Verificar si hay imágenes adicionales
+                
                 if (data.additionalImages && data.additionalImages.length > 0) {
                     const additionalImagesButton = document.createElement('button');
                     additionalImagesButton.textContent = 'Ver imágenes adicionales';
@@ -107,7 +106,7 @@ async function translateData(title, culture, dynasty) {
     } catch (error) {
         console.error('Error al traducir:', error);
         return {
-            title: title, // Devuelve el original si falla
+            title: title, 
             culture: culture,
             dynasty: dynasty
         };
@@ -115,12 +114,12 @@ async function translateData(title, culture, dynasty) {
 }
 
 function openAdditionalImagesPage(images) {
-    // Crear una nueva ventana o pestaña para mostrar las imágenes adicionales
+    
     const newWindow = window.open('', '_blank');
     newWindow.document.write('<html><head><title>Imágenes adicionales</title></head><body>');
     newWindow.document.write('<h1>Imágenes adicionales</h1>');
 
-    // Iterar a través de las imágenes adicionales y mostrarlas
+    
     images.forEach((imageUrl) => {
         newWindow.document.write(`<img src="${imageUrl}" style="max-width: 100%; margin-bottom: 10px;"><br>`);
     });
@@ -131,11 +130,11 @@ function openAdditionalImagesPage(images) {
 
 function displayPaginationControls() {
     const paginationContainer = document.getElementById('pagination-controls');
-    paginationContainer.innerHTML = ''; // Limpiar controles de paginación previos
+    paginationContainer.innerHTML = ''; 
 
     const prevButton = document.createElement('button');
     prevButton.textContent = 'Anterior';
-    prevButton.disabled = currentPage === 1; // Deshabilitar si es la primera página
+    prevButton.disabled = currentPage === 1; 
     prevButton.addEventListener('click', () => {
         if (currentPage > 1) {
             currentPage--;
@@ -146,7 +145,7 @@ function displayPaginationControls() {
 
     const nextButton = document.createElement('button');
     nextButton.textContent = 'Siguiente';
-    nextButton.disabled = currentPage === totalPages; // Deshabilitar si es la última página
+    nextButton.disabled = currentPage === totalPages; 
     nextButton.addEventListener('click', () => {
         if (currentPage < totalPages) {
             currentPage++;
@@ -155,7 +154,7 @@ function displayPaginationControls() {
         }
     });
 
-    // Mostrar el número de la página actual
+    
     const pageInfo = document.createElement('span');
     pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
 

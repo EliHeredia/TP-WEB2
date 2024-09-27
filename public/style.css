@@ -1,10 +1,28 @@
 body {
-    font-family: Arial, sans-serif;
+    background-image: url(img/fondo1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    text-align: center;       
+    font-family: Georgia, 'Times New Roman', Times, serif;
     margin: 0;
     padding: 20px;
-    background-color: #f4f4f4;
+    
+    
 }
+body h1{
+    font-size: 60px;
+    background-color:rgb(124, 123, 123);
+    color: white;
+    
 
+}body h2{
+    font-size: 45px;
+    color:black;
+    
+
+}
 #filters {
     margin-bottom: 20px;
 }
@@ -12,13 +30,13 @@ body {
 #filters input, #filters button {
     padding: 10px;
     margin-right: 10px;
-    font-size: 16px;
+    font-size: 25px;
 }
 
 #resultados {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Grilla de 4 columnas */
-    gap: 20px; /* Espacio entre las tarjetas */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; 
 }
 
 .art-item {
