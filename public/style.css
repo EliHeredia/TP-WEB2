@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+#filters {
+    margin-bottom: 20px;
+}
+
+#filters input, #filters button {
+    padding: 10px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+#resultados {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Grilla de 4 columnas */
+    gap: 20px; /* Espacio entre las tarjetas */
+}
+
+.art-item {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.art-item img {
+    width: 100%;
+    height: auto;
+}
+
+.art-item button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.art-item button:hover {
+    background-color: #0056b3;
+}
